@@ -2,6 +2,7 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookList from './BookList'
+import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
@@ -26,12 +27,25 @@ class BooksApp extends React.Component {
           {id: 1, title:"1776", author: "David McCullough", coverImageUrl: 'http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api'},
           {id: 2, title:"Harry Potter and the Sorcerer's Stone", author: "J. K. Rowling", coverImageUrl: 'http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api'},
 
-      ]
+      ],
+      books: []
 
   }
 
-  render() {
-    return (
+    componentDidMount() {
+        BooksAPI.getAll()
+            .then((books) => {
+                this.setState(() => ({
+                    books
+                }))
+            })
+    }
+
+
+
+    render() {
+        let books = this.state.books;
+        return (
       <div className="app">
         {this.state.showSearchPage ? (
           <div className="search-books">
@@ -60,9 +74,9 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div>
-              <BookList books={this.state.currentlyReadingBooks} bookCatagory={'Currently Reading'}/>
-              <BookList books={this.state.wantToReadBooks} bookCatagory={'Want to Read'}/>
-              <BookList books={this.state.readBooks} bookCatagory={'Read'}/>
+              <BookList books={books.filter(book => book.shelf === 'currentlyReading')} bookCatagory={'Currently Reading'}/>
+              <BookList books={books.filter(book => book.shelf === 'wantToRead')} bookCatagory={'Want to Read'}/>
+              <BookList books={books.filter(book => book.shelf === 'read')} bookCatagory={'Read'}/>
             </div>
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
