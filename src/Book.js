@@ -1,31 +1,43 @@
 import React from 'react';
 
-const Book = props => {
+class Book extends React.Component {
+
+    handleChange = (book, event) => {
+
+        this.props.onMoveBook(book, event.target.value)
+        // this.setState({ value: event.target.value });
+    }
+
     //return JSX
-    return(
+    render() {
+        return (
 
-        <li>
-            <div className="book">
-            <div className="book-top">
+            <li>
+                <div className="book">
+                    <div className="book-top">
 
-                <div className="book-cover" style={{width: 128, height: 192, backgroundImage: `url(${props.book.imageLinks.thumbnail})`}}/>
-                <div className="book-shelf-changer">
-                    <select>
-                        <option value="move" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                    </select>
+                        <div className="book-cover" style={{
+                            width: 128,
+                            height: 192,
+                            backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`
+                        }}/>
+                        <div className="book-shelf-changer">
+                            <select onChange={(event) => this.handleChange(this.props.book, event)} defaultValue={this.props.book.shelf}>
+                                <option value="move" disabled>Move to...</option>
+                                <option value="currentlyReading">Currently Reading</option>
+                                <option value="wantToRead">Want to Read</option>
+                                <option value="read">Read</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="book-title">{this.props.book.title}</div>
+                    <div className="book-authors">{this.props.book.authors}</div>
                 </div>
-            </div>
-            <div className="book-title">{props.book.title}</div>
-            <div className="book-authors">{props.book.authors}</div>
-        </div>
-        </li>
-    );
-};
-
+            </li>
+        );
+    }
+}
 
 
 export default Book
