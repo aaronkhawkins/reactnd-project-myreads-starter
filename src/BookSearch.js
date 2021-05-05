@@ -12,10 +12,13 @@ class BookSearch extends Component {
     }
 
     updateQuery = (query) => {
-        this.searchForBooks(query);
-        this.setState(() => ({
-            query: query.trim()
-        }))
+
+            this.searchForBooks(query);
+            this.setState(() => ({
+                query: query
+            }))
+
+
 
     }
     clearQuery = () => {
@@ -24,14 +27,20 @@ class BookSearch extends Component {
     }
 
     searchForBooks(query) {
-        console.log("calling search books with query:" + query)
-        BooksAPI.search(query)
-            .then((books) => {
-                this.setState(() => ({
-                    searchResults: books
-                }))
-            })
-        console.log(this.state.searchResults)
+
+        if (query.length > 0 ){
+            BooksAPI.search(query)
+                .then((books) => {
+                  if (books.error) {
+                    this.setState({searchResults: []})
+                  } else {
+                    this.setState({searchResults: books})
+                  }
+                });
+        } else {
+            this.setState({searchResults: []});
+        }
+
     }
 
     render(){

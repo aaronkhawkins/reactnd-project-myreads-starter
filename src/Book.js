@@ -17,7 +17,7 @@ class Book extends React.Component {
                         <div className="book-cover" style={{
                             width: 128,
                             height: 192,
-                            backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`
+                            backgroundImage: `url(${this.props.book.imageLinks && this.props.book.imageLinks.thumbnail })`
                         }}/>
                         <div className="book-shelf-changer">
                             <select onChange={(event) => this.handleChange(this.props.book, event)} defaultValue={this.props.book.shelf}>
