@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import BookList from "./BookList";
 import * as BooksAPI from "./BooksAPI";
+import { Link } from 'react-router-dom';
+
 
 class BookSearch extends Component {
 
@@ -22,7 +24,10 @@ class BookSearch extends Component {
 
     }
     clearQuery = () => {
-        this.updateQuery('')
+        this.setState(() => ({
+            query: "",
+            searchResults: []
+        }))
 
     }
 
@@ -47,9 +52,11 @@ class BookSearch extends Component {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button className="close-search"
+                   <Link to="/">
+                       <button className="close-search"
                             onClick={() => this.setState({showSearchPage: false})}>Close
                     </button>
+                </Link>
                     <div className="search-books-input-wrapper">
                         {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -67,7 +74,7 @@ class BookSearch extends Component {
                 <div className="search-books-results">
 
                     <BookList books={this.state.searchResults} bookCatagory={''}
-                              onMoveBook={this.handleMoveBook}/>
+                              onMoveBook={this.props.onMoveBook}/>
 
                     <ol className="books-grid"/>
                 </div>
