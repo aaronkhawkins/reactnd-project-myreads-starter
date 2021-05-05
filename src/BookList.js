@@ -8,6 +8,7 @@ class BookList extends Component {
     render() {
         const {books} = this.props;
         return (
+
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{this.props.bookCatagory}</h2>
                 <div className="bookshelf-books">
@@ -16,7 +17,7 @@ class BookList extends Component {
                             <Book key={book.id} book={book} onMoveBook={this.props.onMoveBook}/>
                         ))}
 
-                    </ol>u
+                    </ol>
                 </div>
             </div>
         );
