@@ -3,9 +3,7 @@ import React from 'react';
 class Book extends React.Component {
 
     handleChange = (book, event) => {
-
         this.props.onMoveBook(book, event.target.value)
-        // this.setState({ value: event.target.value });
     }
 
     //return JSX

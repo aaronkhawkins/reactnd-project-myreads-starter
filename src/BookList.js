@@ -16,7 +16,7 @@ class BookList extends Component {
                             <Book key={book.id} book={book} onMoveBook={this.props.onMoveBook}/>
                         ))}
 
-                    </ol>
+                    </ol>u
                 </div>
             </div>
         );
