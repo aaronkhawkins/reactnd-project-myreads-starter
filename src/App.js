@@ -23,7 +23,6 @@ class BooksApp extends React.Component {
     updateItem(book, shelf) {
         let index = this.state.books.findIndex(x => x.id === book.id);
         if (index === -1) {
-            console.log('new book - insert it. ' );
             book.shelf = shelf.shelf
             this.setState((currentState) => ({
                 books: currentState.books.concat([book])
@@ -45,8 +44,6 @@ class BooksApp extends React.Component {
                 this.setState(() => ({
                     books
                 }))
-                console.log("books " + JSON.stringify(this.state.books))
-                console.log("number of books " + this.state.books.length)
 
             })
     }

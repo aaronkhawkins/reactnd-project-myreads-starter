@@ -7,22 +7,18 @@ import { Link } from 'react-router-dom';
 class BookSearch extends Component {
 
     state = {
-
         query: '',
         searchResults: []
-
     }
 
     updateQuery = (query) => {
-
             this.searchForBooks(query);
             this.setState(() => ({
                 query: query
             }))
 
-
-
     }
+
     clearQuery = () => {
         this.setState(() => ({
             query: "",
@@ -30,20 +26,6 @@ class BookSearch extends Component {
         }))
 
     }
-
-    combineSearchResultsAndBooks = (searchResults) => {
-        return this.state.searchResults;
-        // this.state.searchResults.map(book => {
-        //     this.props.myBooks.map(b => {
-        //         if (b.id === book.id){
-        //             book.shelf = b.shelf;
-        //         }
-        //         return b;
-        //     });
-        //     return book;
-        // })
-    }
-
 
     searchForBooks(query) {
 
@@ -61,8 +43,6 @@ class BookSearch extends Component {
         }
 
     }
-
-
 
 
 
