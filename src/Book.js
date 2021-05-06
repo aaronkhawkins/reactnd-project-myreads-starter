@@ -8,6 +8,7 @@ class Book extends React.Component {
 
     //return JSX
     render() {
+        const bookAuthor =  this.props.book.authors ? this.props.book.authors.join(', ') : "";
         return (
 
             <li>
@@ -20,7 +21,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${this.props.book.imageLinks && this.props.book.imageLinks.thumbnail })`
                         }}/>
                         <div className="book-shelf-changer">
-                            <select onChange={(event) => this.handleChange(this.props.book, event)} defaultValue={this.props.book.shelf}>
+                            <select onChange={(event) => this.handleChange(this.props.book, event)} defaultValue={this.props.book.shelf || "none"}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -30,7 +31,7 @@ class Book extends React.Component {
                         </div>
                     </div>
                     <div className="book-title">{this.props.book.title}</div>
-                    <div className="book-authors">{this.props.book.authors}</div>
+                    <div className="book-authors">{bookAuthor}</div>
                 </div>
             </li>
         );

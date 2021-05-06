@@ -31,6 +31,20 @@ class BookSearch extends Component {
 
     }
 
+    combineSearchResultsAndBooks = (searchResults) => {
+        return this.state.searchResults;
+        // this.state.searchResults.map(book => {
+        //     this.props.myBooks.map(b => {
+        //         if (b.id === book.id){
+        //             book.shelf = b.shelf;
+        //         }
+        //         return b;
+        //     });
+        //     return book;
+        // })
+    }
+
+
     searchForBooks(query) {
 
         if (query.length > 0 ){
@@ -48,13 +62,29 @@ class BookSearch extends Component {
 
     }
 
+
+
+
+
+
     render(){
+        // since the search results don't have info about the shelf the book is on...
+        // loop through the list and my shelf and update the shelf info so the move component works correctly
+        const updatedBooks = this.state.searchResults.map(book => {
+            this.props.myBooks.map(b => {
+                if (b.id === book.id) {
+                    book.shelf = b.shelf;
+                }
+                return b;
+            });
+            return book;
+        });
         return (
             <div className="search-books">
                 <div className="search-books-bar">
                    <Link to="/">
                        <button className="close-search"
-                            onClick={() => this.setState({showSearchPage: false})}>Close
+                            onClick={() => this.clearQuery()}>Close
                     </button>
                 </Link>
                     <div className="search-books-input-wrapper">
@@ -73,7 +103,7 @@ class BookSearch extends Component {
                 </div>
                 <div className="search-books-results">
 
-                    <BookList books={this.state.searchResults} bookCatagory={''}
+                    <BookList books={updatedBooks} bookCatagory={''}
                               onMoveBook={this.props.onMoveBook}/>
 
                     <ol className="books-grid"/>
